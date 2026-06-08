@@ -16,32 +16,24 @@ class TrackingViewModel : ViewModel() {
     private val _devices = MutableStateFlow<List<Device>>(emptyList())
     val devices: StateFlow<List<Device>> = _devices.asStateFlow()
 
+    private val targetMac = "8C:94:DF:68:ED:40"
+
     init {
-        // Initialize with some mock devices
+        // Initialize with the ESP32 as static model data
         _devices.value = listOf(
             Device(
-                id = "1",
-                name = "Child 1 Tracker",
+                id = targetMac,
+                name = "ESP32 Safety Tracker",
                 latitude = 37.7749,
                 longitude = -122.4194,
-                batteryLevel = 85,
-                signalStrength = 4,
-                lastUpdated = System.currentTimeMillis(),
-                status = DeviceStatus.ONLINE
-            ),
-            Device(
-                id = "2",
-                name = "Child 2 Tracker",
-                latitude = 37.7849,
-                longitude = -122.4294,
-                batteryLevel = 45,
-                signalStrength = 3,
+                batteryLevel = 100,
+                signalStrength = 5,
                 lastUpdated = System.currentTimeMillis(),
                 status = DeviceStatus.ONLINE
             )
         )
 
-        // Simulate periodic location updates
+        // Simulate periodic location updates for the model data
         startLocationSimulation()
     }
 
