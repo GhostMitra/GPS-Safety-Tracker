@@ -2,46 +2,47 @@ package com.gpssafetytracker.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Vibrant Primary - Energetic Safety Orange/Amber
-val PrimaryLight = Color(0xFFFF6D00)
+// Professional Modern Palette: Emerald & Slate
+val PrimaryLight = Color(0xFF006C4C) // Deep Emerald
 val OnPrimaryLight = Color(0xFFFFFFFF)
-val PrimaryContainerLight = Color(0xFFFFE0B2)
-val OnPrimaryContainerLight = Color(0xFF331100)
+val PrimaryContainerLight = Color(0xFF89F8C7)
+val OnPrimaryContainerLight = Color(0xFF002114)
 
-// Vibrant Secondary - Deep Electric Blue
-val SecondaryLight = Color(0xFF2962FF)
+val SecondaryLight = Color(0xFF4D6357) // Slate Green
 val OnSecondaryLight = Color(0xFFFFFFFF)
-val SecondaryContainerLight = Color(0xFFD2E3FC)
-val OnSecondaryContainerLight = Color(0xFF001433)
+val SecondaryContainerLight = Color(0xFFCFE9D9)
+val OnSecondaryContainerLight = Color(0xFF092016)
 
-// Vibrant Tertiary - High-Visibility Green
-val TertiaryLight = Color(0xFF00C853)
+val TertiaryLight = Color(0xFF3D6373) // Steel Blue
 val OnTertiaryLight = Color(0xFFFFFFFF)
-val TertiaryContainerLight = Color(0xFFB9F6CA)
-val OnTertiaryContainerLight = Color(0xFF002208)
+val TertiaryContainerLight = Color(0xFFC1E8FB)
+val OnTertiaryContainerLight = Color(0xFF001F29)
 
-val ErrorLight = Color(0xFFD50000)
+val ErrorLight = Color(0xFFBA1A1A)
 val OnErrorLight = Color(0xFFFFFFFF)
-val BackgroundLight = Color(0xFFFFFBFF)
-val SurfaceLight = Color(0xFFFFFBFF)
+val BackgroundLight = Color(0xFFFBFDF9)
+val SurfaceLight = Color(0xFFFBFDF9)
+val OutlineLight = Color(0xFF707973)
 
 // Dark Theme Variants
-val PrimaryDark = Color(0xFFFFB74D)
-val OnPrimaryDark = Color(0xFF4D2300)
-val PrimaryContainerDark = Color(0xFF663300)
-val OnPrimaryContainerDark = Color(0xFFFFE0B2)
+val PrimaryDark = Color(0xFF6CDBAC) // Mint Emerald
+val OnPrimaryDark = Color(0xFF003825)
+val PrimaryContainerDark = Color(0xFF005138)
+val OnPrimaryContainerDark = Color(0xFF89F8C7)
 
-val SecondaryDark = Color(0xFF82B1FF)
-val OnSecondaryDark = Color(0xFF002171)
-val SecondaryContainerDark = Color(0xFF003399)
-val OnSecondaryContainerDark = Color(0xFFD2E3FC)
+val SecondaryDark = Color(0xFFB3CCBE)
+val OnSecondaryDark = Color(0xFF1F352A)
+val SecondaryContainerDark = Color(0xFF354B40)
+val OnSecondaryContainerDark = Color(0xFFCFE9D9)
 
-val TertiaryDark = Color(0xFF69F0AE)
-val OnTertiaryDark = Color(0xFF00391C)
-val TertiaryContainerDark = Color(0xFF00522C)
-val OnTertiaryContainerDark = Color(0xFFB9F6CA)
+val TertiaryDark = Color(0xFFA5CCDF)
+val OnTertiaryDark = Color(0xFF073543)
+val TertiaryContainerDark = Color(0xFF244C5A)
+val OnTertiaryContainerDark = Color(0xFFC1E8FB)
 
 val ErrorDark = Color(0xFFFFB4AB)
 val OnErrorDark = Color(0xFF690005)
-val BackgroundDark = Color(0xFF1C1B1F)
-val SurfaceDark = Color(0xFF1C1B1F)
+
+val BackgroundDark = Color(0xFF191C1A) // Deep Charcoal
+val SurfaceDark = Color(0xFF191C1A)
+val OutlineDark = Color(0xFF8A938C)
