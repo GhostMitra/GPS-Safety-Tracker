@@ -1,9 +1,15 @@
 package com.gpssafetytracker.data
 
+import android.util.Log
 import com.gpssafetytracker.data.model.*
+import com.gpssafetytracker.data.remote.NetworkModule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 object SafetyRepository {
@@ -26,25 +32,26 @@ object SafetyRepository {
     val sosCoordinates: StateFlow<Pair<Double, Double>?> = _sosCoordinates.asStateFlow()
 
     init {
-        // Initialize with mock data from technical.md
+        // Initialize static mock data for devices
         _devices.value = listOf(
             Device(
                 id = "8C:94:DF:68:ED:40",
                 name = "ESP32 Safety Tracker",
                 type = DeviceType.TRACKER,
-                latitude = 37.7749,
-                longitude = -122.4194,
+                latitude = 22.513332,
+                longitude = 88.384186,
                 speed = 0.0,
-                batteryLevel = 100,
+                batteryLevel = 88,
                 signalStrength = 5,
                 lastUpdated = System.currentTimeMillis(),
                 status = DeviceStatus.ONLINE
             )
         )
 
+        // Initialize static mock data for fences and logs centered around the device coordinates
         _geofences.value = listOf(
-            Geofence("1", "Home", 37.7749, -122.4194, 500.0, true, GeofenceStatus.SAFE),
-            Geofence("2", "School", 37.7849, -122.4294, 300.0, true, GeofenceStatus.SAFE)
+            Geofence("1", "Home", 22.513332, 88.384186, 500.0, true, GeofenceStatus.SAFE),
+            Geofence("2", "School", 22.518332, 88.389186, 300.0, true, GeofenceStatus.SAFE)
         )
 
         _logs.value = listOf(
@@ -57,6 +64,57 @@ object SafetyRepository {
                 message = "ESP32 Safety Tracker entered Home."
             )
         )
+
+        // Start background synchronization polling
+        startApiPolling()
+    }
+
+    private fun startApiPolling() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val deviceId = "8C:94:DF:68:ED:40"
+            while (true) {
+                try {
+                    val ping = NetworkModule.apiService.getLatest(deviceId)
+                    val historyList = NetworkModule.apiService.getHistory(deviceId)
+                    
+                    val device = Device(
+                        id = ping.deviceId,
+                        name = "ESP32 Safety Tracker",
+                        type = DeviceType.TRACKER,
+                        latitude = ping.lat ?: 37.7749,
+                        longitude = ping.lng ?: -122.4194,
+                        speed = 0.0,
+                        batteryLevel = if (ping.wifiRssi != 0) 88 else 45,
+                        signalStrength = when {
+                            ping.wifiRssi > -60 -> 5
+                            ping.wifiRssi > -70 -> 4
+                            ping.wifiRssi > -80 -> 3
+                            ping.wifiRssi > -90 -> 2
+                            ping.wifiRssi > -100 -> 1
+                            else -> 0
+                        },
+                        lastUpdated = System.currentTimeMillis(),
+                        status = if (ping.gpsLocked) DeviceStatus.ONLINE else DeviceStatus.OFFLINE
+                    )
+
+                    val mappedHistory = historyList
+                        .filter { it.lat != null && it.lng != null }
+                        .map { Pair(it.lat!!, it.lng!!) }
+                        .reversed()
+
+                    launch(Dispatchers.Main) {
+                        _devices.value = listOf(device)
+                        val currentHistory = _history.value.toMutableMap()
+                        currentHistory[device.id] = mappedHistory.takeLast(30)
+                        _history.value = currentHistory
+                        checkGeofences()
+                    }
+                } catch (e: Exception) {
+                    Log.e("SafetyRepository", "Error polling backend: ${e.message}")
+                }
+                delay(8000)
+            }
+        }
     }
 
     fun updateDevices(newDevices: List<Device>) {
