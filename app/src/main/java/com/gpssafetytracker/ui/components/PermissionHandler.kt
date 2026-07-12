@@ -49,7 +49,7 @@ private fun PermissionRequestUI(permissionState: MultiplePermissionsState) {
         verticalArrangement = Arrangement.Center
     ) {
         val textToShow = if (permissionState.shouldShowRationale) {
-            "The GPS Safety Tracker needs location and notification permissions to function correctly. Please grant them to continue."
+            "SafeGuard needs location and notification permissions to function correctly. Please grant them to continue."
         } else {
             "Permissions required for tracking and alerts. Please grant them."
         }

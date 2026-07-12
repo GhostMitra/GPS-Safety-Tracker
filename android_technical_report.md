@@ -1,7 +1,7 @@
-# Technical Report: GPS Safety Tracker (Android Platform)
+# Technical Report: SafeGuard (Android Platform)
 
 ## 1. Executive Summary
-The **GPS Safety Tracker** is a professional-grade Android application engineered for real-time asset monitoring, interactive geofencing, and emergency response. It leverages a modern Material 3 design system with a specialized "Command Center" aesthetic to provide high situational awareness in a secure, intuitive environment.
+The **SafeGuard** is a professional-grade Android application engineered for real-time asset monitoring, interactive geofencing, and emergency response. It leverages a modern Material 3 design system with a specialized "Command Center" aesthetic to provide high situational awareness in a secure, intuitive environment.
 
 ---
 

@@ -1,4 +1,4 @@
-# GPS Safety Tracker
+# SafeGuard
 
 A modern Android application designed for real-time tracking, safety monitoring, and emergency response. Built with Jetpack Compose, Material 3, and OpenStreetMap.
 

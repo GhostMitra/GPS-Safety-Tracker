@@ -1,4 +1,4 @@
-# Mock Data - GPS Safety Tracker
+# Mock Data - SafeGuard
 
 This document lists the mock data currently used for development and demonstration purposes within the application.
 

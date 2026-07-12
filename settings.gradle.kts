@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GPS Safety Tracker"
+rootProject.name = "SafeGuard"
 include(":app")
  
